@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Educational government palette. Values are "r g b" so Tailwind can apply opacity. */
+:root {
+  --c-primary: 15 118 110;        /* #0F766E teal, buttons and active states */
+  --c-nav: 9 59 55;               /* #093B37 deep teal, sidebar and sign-in panel */
+  --c-nav-deep: 6 42 39;          /* #062A27 for the gradient foot */
+  --c-on-nav: 255 255 255;
+  --c-on-nav-soft: 190 216 213;   /* readable secondary text on the deep teal */
+  --c-primary-soft: 204 232 229;
+  --c-on-primary: 255 255 255;
+  --c-secondary: 8 145 178;       /* #0891B2 cyan */
+  --c-accent: 245 158 11;         /* #F59E0B amber */
+  --c-accent-strong: 217 119 6;
+  --c-ink: 15 42 40;
+  --c-muted: 71 101 98;
+  --c-line: 214 230 228;
+  --c-bg: 246 248 248;
+  --c-surface: 255 255 255;
+  --c-surface-sunken: 241 245 245;
+  --c-surface-raised: 255 255 255;
+  color-scheme: light;
+}
+.dark {
+  --c-primary: 20 148 140;
+  --c-nav: 7 36 34;
+  --c-nav-deep: 4 24 23;
+  --c-on-nav: 240 250 248;
+  --c-on-nav-soft: 164 196 192;
+  --c-primary-soft: 17 58 55;
+  --c-on-primary: 255 255 255;
+  --c-secondary: 34 174 208;
+  --c-accent: 245 158 11;
+  --c-accent-strong: 251 191 36;
+  --c-ink: 230 240 238;
+  --c-muted: 147 174 170;
+  --c-line: 36 64 61;
+  --c-bg: 11 26 25;
+  --c-surface: 19 36 35;
+  --c-surface-sunken: 15 30 29;
+  --c-surface-raised: 26 46 44;
+  color-scheme: dark;
+}
+
+/**
+ * An explicit choice is stated positively, and wins on specificity (0,1,1 against the 0,1,0 of .dark).
+ * Light therefore stops being "whatever happens when no dark class is present": if a dark class is ever
+ * left behind, by a stale render or anything else, choosing light still repaints the page.
+ */
+html[data-theme='light'] {
+  --c-primary: 15 118 110; --c-nav: 9 59 55; --c-nav-deep: 6 42 39;
+  --c-on-nav: 255 255 255; --c-on-nav-soft: 190 216 213;
+  --c-primary-soft: 204 232 229; --c-on-primary: 255 255 255;
+  --c-secondary: 8 145 178; --c-accent: 245 158 11; --c-accent-strong: 217 119 6;
+  --c-ink: 15 42 40; --c-muted: 71 101 98; --c-line: 214 230 228; --c-bg: 246 248 248;
+  --c-surface: 255 255 255; --c-surface-sunken: 241 245 245; --c-surface-raised: 255 255 255;
+  color-scheme: light;
+}
+html[data-theme='dark'] {
+  --c-primary: 20 148 140; --c-nav: 7 36 34; --c-nav-deep: 4 24 23;
+  --c-on-nav: 240 250 248; --c-on-nav-soft: 164 196 192;
+  --c-primary-soft: 17 58 55; --c-on-primary: 255 255 255;
+  --c-secondary: 34 174 208; --c-accent: 245 158 11; --c-accent-strong: 251 191 36;
+  --c-ink: 230 240 238; --c-muted: 147 174 170; --c-line: 36 64 61; --c-bg: 11 26 25;
+  --c-surface: 19 36 35; --c-surface-sunken: 15 30 29; --c-surface-raised: 26 46 44;
+  color-scheme: dark;
+}
+/* The literal-utility overrides below key off .dark, so a light choice has to switch them back too. */
+html[data-theme='light'] .bg-white { background-color: #fff; }
+html[data-theme='light'] .bg-green-50 { background-color: rgb(240 253 244); }
+html[data-theme='light'] .bg-red-50 { background-color: rgb(254 242 242); }
+html[data-theme='light'] .bg-amber-50 { background-color: rgb(255 251 235); }
+html[data-theme='light'] .bg-blue-50 { background-color: rgb(239 246 255); }
+
+body { @apply bg-paper text-forest-900 font-sans antialiased; }
+:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 2px; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgb(var(--c-line)); border-radius: 6px; }
+
+/* Pages written before the theme existed use a few literal utilities. These keep them readable in dark mode. */
+.dark .bg-white { background-color: rgb(var(--c-surface)); }
+.dark .bg-gray-100 { background-color: rgb(var(--c-surface-sunken)); }
+.dark .text-gray-600, .dark .text-gray-700 { color: rgb(var(--c-muted)); }
+.dark .bg-green-50 { background-color: rgb(6 78 59 / 0.35); }
+.dark .bg-red-50 { background-color: rgb(127 29 29 / 0.3); }
+.dark .bg-amber-50 { background-color: rgb(120 53 15 / 0.32); }
+.dark .bg-blue-50 { background-color: rgb(30 58 138 / 0.3); }
+.dark .bg-green-100 { background-color: rgb(6 78 59 / 0.5); }
+.dark .bg-emerald-100 { background-color: rgb(6 78 59 / 0.5); }
+.dark .bg-red-100 { background-color: rgb(127 29 29 / 0.5); }
+.dark .bg-amber-100 { background-color: rgb(120 53 15 / 0.55); }
+.dark .bg-orange-100 { background-color: rgb(124 45 18 / 0.5); }
+.dark .bg-blue-100 { background-color: rgb(30 58 138 / 0.5); }
+.dark .bg-violet-50 { background-color: rgb(76 29 149 / 0.3); }
+.dark .bg-violet-100 { background-color: rgb(76 29 149 / 0.5); }
+.dark .bg-cyan-100 { background-color: rgb(22 78 99 / 0.6); }
+.dark .text-green-700, .dark .text-green-800 { color: rgb(134 239 172); }
+.dark .text-emerald-800 { color: rgb(110 231 183); }
+.dark .text-red-700, .dark .text-red-800 { color: rgb(252 165 165); }
+/* amber-900 carries the offline and pending-sync chips, which a student reads at the site in the
+   dark. Without this it stayed near-black on brown. */
+.dark .text-amber-700, .dark .text-amber-800, .dark .text-amber-900 { color: rgb(252 211 77); }
+.dark .text-orange-800 { color: rgb(253 186 116); }
+.dark .text-blue-800 { color: rgb(147 197 253); }
+.dark .text-violet-800, .dark .text-violet-900 { color: rgb(196 181 253); }
+.dark .text-cyan-800, .dark .text-cyan-900 { color: rgb(103 232 249); }
+.dark .text-amber-600 { color: rgb(var(--c-accent)); }
+.dark .border-red-700 { border-color: rgb(248 113 113); }
+.dark .bg-green-700 { background-color: rgb(21 128 61); }
+
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
